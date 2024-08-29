@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="email"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: none;
+            height: 150px;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        #please-wait {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            border-radius: 5px;
+            z-index: 1000;
+            font-size: 18px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="./home.html">HOME</a>
+    <a href="#">CONTACT US</a>
+    <a href="./about-us.html">ABOUT US</a>
+    <a href="./index.html">SIGNUP</a>
+    <a href="./login.html">LOGIN</a>
+</header>
+
+<h1 title="Why you contact me? 
+If you have any problem or want to give any suggestion you can contact us. we will reply you soon.">Contact us now</h1>
+
+<form method="post" name="google-sheet" id="contact-form">
+    <div>
+        <label for="name">Your Name</label>
+        <input type="text" name="Name" id="name" placeholder="Type your name" required>
+    </div>
+    <div>
+        <label for="email">Give your active email address</label>
+        <input type="email" name="Email Address" id="email" placeholder="Type your email" required>
+    </div>
+    <div>
+        <label for="textarea">What is your statement?</label>
+        <textarea id="textarea" placeholder="Tell us your problem or suggestion" rows="20" cols="140" name="User Statement" required></textarea>
+    </div>    
+    <div>
+        <input type="submit" value="Submit">
+    </div>    
+</form>
+
+<div id="please-wait">Please wait for Confirmation Message...</div>
+
+<footer>
+    All rights reserved @2024 Made by "Hassan Javaid"
+</footer>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzQsVNTowSkoaFiy-M0BuTX4ubLGEx9Qe50cbIKAoqSdwDumHv-Qp2pss8aJYCg77T3/exec';
+    const form = document.getElementById('contact-form');
+    const pleaseWait = document.getElementById('please-wait');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        pleaseWait.style.display = 'block'; // Show "Please wait" message
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                alert("Confirmation Message: Your request has been submitted. We will get back to you soon!");
+                pleaseWait.style.display = 'none'; // Hide "Please wait" message
+                window.location.href = "./home.html"; // Redirect after submission
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                pleaseWait.style.display = 'none'; // Hide "Please wait" message in case of error
+            });
+    });
+</script>
+
+</body>
+</html>
